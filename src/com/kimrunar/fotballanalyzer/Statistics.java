@@ -32,16 +32,25 @@ import java.util.List;
  */
 public class Statistics {
   	private int[] goals;
+	private int[] redCards; 
    
     public Statistics() {
       this.goals = new int[130];
+      this.redCards = new int[130];
     }
 
-    public void NewEvent(Event event) {
+    public void GoalOccurance(Event event) {
       if(event.IsGoal()) {
     	  
         goals[event.GetMinute() / 1]++;
       }
+    }
+    
+    public void RedCardOccurance(Event event){
+    	if(event.getEventType() == 5 || event.getEventType() == 6){
+    		
+    		redCards[event.GetMinute()]++;
+    	}
     }
 
     public int NumberOfGoalsInInterval(int interval) {
@@ -51,4 +60,7 @@ public class Statistics {
     public int[] getGoals(){
     	return goals;
     }
+    public int[] getRedCards() {
+		return redCards;
+	}
   }

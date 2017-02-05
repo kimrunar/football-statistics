@@ -18,27 +18,24 @@ import org.jfree.data.xy.IntervalXYDataset;
 public class Main {
 
 	private static final String TESTFILE = "sample.txt";
-	private static final String REALFILE = "test.txt";
+	private static final String REALFILE = "C:/Users/kimhe/Desktop/Datasets/Football/test.txt";
+	private static final String SPLIT_PATTERN = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 	public static void main(String[] args) throws IOException {
 		ArrayList<String[]> matches = new ArrayList<String[]>();
-		
-		
-		System.out.println("Initializing..This can take a while.....");
-		Datastorage d = new Datastorage(TESTFILE);
-		
-		d.readLargerTextFile();
+		System.out.println("Collecting data from file....");
+		Datastorage d = new Datastorage(REALFILE);
+		d.readCVS(SPLIT_PATTERN);
 		
 		matches = d.getEvent();
 		EventMaker eventmaker = new EventMaker(matches);
 		
 		System.out.println("Initializing done... Starting computing... ");
 		
-	
 		Statistics stat = eventmaker.GetStatistics();
 		
-		int[] goals = stat.getGoals();
-		
-		d.write(goals);
+		//int[] goals = stat.getGoals();
+		int[] redcards = stat.getRedCards();
+		d.writeToFile(redcards, "{y : ", "},", "redCards.txt" );
 		
 	}
 }

@@ -20,7 +20,8 @@ public class EventMaker{
   public Statistics GetStatistics() {
       Statistics statistics = new Statistics();
       for(Event event : events) {
-      	statistics.NewEvent(event);
+      	statistics.GoalOccurance(event);
+      	statistics.RedCardOccurance(event);
       }
       return statistics;
     }

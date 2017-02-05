@@ -19,7 +19,7 @@ public class Datastorage {
 	
 	String[] fieldData;
 	
-    public  void readLargerTextFile() throws IOException {
+    public  void readCVS(String splitpattern) throws IOException {
 
         
         String line = "";
@@ -34,17 +34,12 @@ public class Datastorage {
 	        	
 	        	line = br.readLine();
 	        	if(line != null){
-	        		fieldData =line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+	        		fieldData =line.split(splitpattern);
 	        	}
-	        	event.add(fieldData);
-	        	
-	        	
-	        
+	        	event.add(fieldData);   
 	        	
         	}
-        	
-            	
-              
+        	    
             	
             }
         
@@ -63,12 +58,14 @@ public class Datastorage {
     	return fieldData;
     }
     
-    public static void write (int[] x) throws IOException{
+    public void writeToFile(int[] values, String leftOfValue, String rightOfValue,String filename) throws IOException{
+    	String l = leftOfValue;
+    	String r = rightOfValue;
     	  BufferedWriter outputWriter = null;
-    	  outputWriter = new BufferedWriter(new FileWriter("timeline.txt"));
-    	  for (int i = 0; i < x.length; i++) {
+    	  outputWriter = new BufferedWriter(new FileWriter(filename));
+    	  for (int i = 0; i < values.length; i++) {
     	    
-    	    outputWriter.write("{y : " + x[i] +"},");
+    	    outputWriter.write(l + values[i] +r);
     	    
     	  }
     	  outputWriter.newLine();
